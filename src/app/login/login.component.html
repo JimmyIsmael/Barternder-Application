@@ -1,0 +1,33 @@
+<div class="login-form">
+  <form class="needs-validation" novalidate (submit)="onLogin(templateForm)" #templateForm="ngForm">
+      <h2 class="text-center">Log in</h2>
+      <div class="alert alert-warning" role="alert" *ngIf="noLoginValuesAlert">
+        Type your username and password.
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="incorrectUserAlert">
+        You have entered an incorrect username or password.
+      </div>
+      <div class="alert alert-success" role="alert" *ngIf="logoutAlert">
+        You have been logged out of the system.
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" id="userName" name="userName" ngModel #userName="ngModel" required>
+          <div class="invalid-feedback">
+            Username is required.
+          </div>
+      </div>
+      <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password" ngModel #password="ngModel" required>
+          <div class="invalid-feedback">
+            Password is required.
+          </div>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </div>
+      <div class="clearfix">
+          <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+          <a href="#" class="float-right">Forgot Password?</a>
+      </div>
+  </form>
+</div>
