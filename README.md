@@ -1,13 +1,14 @@
-# Senior Project I: Project Zero
+# Senior Project I: Bartender Application
 
 ## Functionality
 This project allows administrator users to:
 1) Login
-2) List all volunteers.
-3) Search for volunteer by name.
-4) Search for volunteer by status.
-5) Create new volunteers. 
-6) Logout. 
+2) List all Drinks.
+3) Search for drinks by name.
+4) Search for drinks by price.
+5) Create new order. 
+6) Displays orders for the bartenders.
+7) Allow bartenders to mark orders as completed. 
 
 
 ## To Run This Project
@@ -29,8 +30,5 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 1) Change the directory to the /backend directory. 
 2) Type node app.js
 
-## Team Members
+## Author
 1) Jimmy Pena - N01414108
-2) Jacob McCann - N01415271
-3) Ángel Selva - N00844015
-4) Jonathan Cordova - N01369082
