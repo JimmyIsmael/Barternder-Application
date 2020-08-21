@@ -32,9 +32,9 @@ pool.on('error', function(err) {
 });
 
 //Query Example
-exports.getAllVolunteers = function() {
+exports.getAllUsers = function() {
     return new Promise( resolve => {
-        tp.sql("SELECT * FROM [ProjectZero].[dbo].[Volunteers]")
+        tp.sql("SELECT * FROM [Bartender].[dbo].[Users]")
         .execute()
         .then(function(results) {
             // console.log(results);
@@ -45,10 +45,10 @@ exports.getAllVolunteers = function() {
     });
 }
 
-exports.getVolunteerByUserNameAndPassword = function(userName, password) {
+exports.getUserByUserNameAndPassword = function(userName, password) {
     return new Promise( resolve => {
         tp.sql("SELECT [id] ,[first_name] ,[last_name] ,[username],[role],[email], [status] " +
-        " FROM [ProjectZero].[dbo].[Volunteers] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Approved'")
+        " FROM [Bartender].[dbo].[Users] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Approved'")
         .execute()
         .then(function(results) {
             //console.log(results);
@@ -60,7 +60,7 @@ exports.getVolunteerByUserNameAndPassword = function(userName, password) {
 }
 
 // Use this example for when we need to insert something to DB
-exports.createNewVolunteer = function(userObject) {
+exports.createNewUser = function(userObject) {
   console.log(userObject);
   pool.acquire(function (err, connection) {
       if (err) {
@@ -68,7 +68,7 @@ exports.createNewVolunteer = function(userObject) {
           return;
       }
       //use the connection as normal
-      var request = new Request("INSERT INTO [dbo].[Volunteers] ([first_name], [last_name], [username], [password], [home_phone], [work_phone], [cell_phone], [email], [educational_background], " +
+      var request = new Request("INSERT INTO [dbo].[Users] ([first_name], [last_name], [username], [password], [home_phone], [work_phone], [cell_phone], [email], [educational_background], " +
       " [current_licenses], [emergency_contact_name], [emergency_contact_phone], [emergency_contact_email], [emergency_contact_address], [drivers_license], [social_security], " +
       " [address], [availability], [role], [status]) " +
       " VALUES (@FIRST_NAME, @LAST_NAME, @USER_NAME, HashBytes('MD5', @PASSWORD), @HOME_PHONE, @WORK_PHONE, @CELL_PHONE, @EMAIL, @EDUCATION, @LICENSES," +
@@ -111,9 +111,9 @@ exports.createNewVolunteer = function(userObject) {
   return 1;
 }
 
-exports.getAllVolunteersByStatus = function(status) {
+exports.getAllUsersByStatus = function(status) {
   return new Promise( resolve => {
-      tp.sql("SELECT * FROM [ProjectZero].[dbo].[Volunteers] where status='"+status+"'")
+      tp.sql("SELECT * FROM [Bartender].[dbo].[Users] where status='"+status+"'")
       .execute()
       .then(function(results) {
           // console.log(results);
@@ -124,9 +124,9 @@ exports.getAllVolunteersByStatus = function(status) {
   });
 }
 
-exports.getAllVolunteersBySearchValue = function(searchValue) {
+exports.getAllUsersBySearchValue = function(searchValue) {
   return new Promise( resolve => {
-      var sql = "SELECT * FROM [ProjectZero].[dbo].[Volunteers] where first_name like '%'+'" +searchValue+ "'+ '%' or last_name like '%'+'" + searchValue + "' + '%'";
+      var sql = "SELECT * FROM [Bartender].[dbo].[Users] where first_name like '%'+'" +searchValue+ "'+ '%' or last_name like '%'+'" + searchValue + "' + '%'";
       console.log(sql);
       tp.sql(sql)
       .execute()

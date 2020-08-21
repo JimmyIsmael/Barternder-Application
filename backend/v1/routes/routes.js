@@ -9,13 +9,13 @@ app.use(bodyParser.json());
 
 //Add GET endpoints here
 router.get('/helloWorld',controller.getHelloWorld);
-router.get('/volunteer',controller.getAllVolunteers);
-router.get('/volunteer/:userName/password/:password',controller.getVolunteerByUserNameAndPassword);
-router.get('/volunteer/status/:status',controller.getAllVolunteersByStatus);
-router.get('/volunteer/search/:searchValue',controller.getAllVolunteersBySearchValue);
+router.get('/volunteer',controller.getAllUsers);
+router.get('/volunteer/:userName/password/:password',controller.getUserByUserNameAndPassword);
+router.get('/volunteer/status/:status',controller.getAllUsersByStatus);
+router.get('/volunteer/search/:searchValue',controller.getAllUsersBySearchValue);
 
 //Add POST endpoint here
-router.post('/volunteer/new',controller.createNewVolunteer);
+router.post('/volunteer/new',controller.createNewUser);
 
 //Will catch all not defined routes
 router.get('*',controller.getNotFound);
