@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './_guards/index';
 import { ListDrinksComponent } from './list-drinks/list-drinks.component';
 import { CreateDrinksComponent } from './create-drinks/create-drinks.component';
+import { CreateOrdersComponent } from './create-orders/create-orders.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CreateDrinksComponent } from './create-drinks/create-drinks.component';
     HelloWorldComponent,
     LoginComponent,
     ListDrinksComponent,
-    CreateDrinksComponent
+    CreateDrinksComponent,
+    CreateOrdersComponent
   ],
   imports: [
     BrowserModule,
