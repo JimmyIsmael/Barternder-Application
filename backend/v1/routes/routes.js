@@ -15,6 +15,7 @@ router.get('/volunteer/status/:status',controller.getAllUsersByStatus);
 router.get('/volunteer/search/:searchValue',controller.getAllUsersBySearchValue);
 
 router.get('/drink',controller.getAllDrinks);
+router.get('/drink/:drinkId',controller.getDrink);
 router.get('/drink/price/lower',controller.listDrinksByLowerPrice);
 router.get('/drink/price/higher',controller.listDrinksByHigherPrice);
 router.get('/drink/keyword/:keyword',controller.listDrinksByKeyword);
@@ -22,6 +23,8 @@ router.get('/drink/keyword/:keyword',controller.listDrinksByKeyword);
 //Add POST endpoint here
 router.post('/volunteer/new', controller.createNewUser);
 router.post('/drink/new', controller.createNewDrink);
+router.post('/drink/edit', controller.editDrink);
+
 
 //Will catch all not defined routes
 router.get('*',controller.getNotFound);

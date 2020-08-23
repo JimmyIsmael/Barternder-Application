@@ -34,6 +34,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                 <td>{{ row.name}}</td>
                 <td>{{ row.description }}</td>
                 <td>{{ row.price }}</td>
+                <td><button class="btn btn-primary"  type="button"  [routerLink]="['/edit-drink']" [queryParams]="{ drinkId: [row.id] }"> Edit</button></td>
               </tr>
             </tbody>
           </table>

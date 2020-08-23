@@ -17,9 +17,10 @@
           <div class="card-body">
             <h4 class="card-title">Drink Information</h4>
               <div class="row">
+                <input type="hidden" class="form-control" id="drinkId" name="drinkId" [ngModel]="drink?.id" #drinkId="ngModel">
                 <div class="col-md-6">
                   <label for="drinkName">Drink name</label>
-                  <input type="text" class="form-control" id="drinkName" name="drinkName" ngModel #drinkName="ngModel" required maxlength="30" minlength="1">
+                  <input type="text" class="form-control" id="drinkName" name="drinkName" [ngModel]="drink?.name" #drinkName="ngModel" required maxlength="30" minlength="1" required>
                   <div *ngIf="drinkName.invalid && (drinkName.dirty || drinkName.touched || errorInForm)" class="text-danger">
                     <div *ngIf="(drinkName.errors.required)">
                       Drink name is required.
@@ -28,7 +29,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="drinkPrice">Drink Price</label>
-                  <input type="number" class="form-control" id="drinkPrice" name="drinkPrice" ngModel #drinkPrice="ngModel" required>
+                  <input type="number" class="form-control" id="drinkPrice" name="drinkPrice" [ngModel]="drink?.price" #drinkPrice="ngModel" required>
                   <div *ngIf="drinkPrice.invalid && (drinkPrice.dirty || drinkPrice.touched || errorInForm)" class="text-danger">
                     <div *ngIf="(drinkPrice.errors.required)">
                       Price name is required.
@@ -39,7 +40,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="description">Description</label>
-                  <input type="description" class="form-control" id="description" name="description" ngModel #description="ngModel" required>
+                  <input type="description" class="form-control" id="description" name="description" [ngModel]="drink?.description" #description="ngModel" required>
                   <div *ngIf="description.invalid && (description.dirty || description.touched || errorInForm)" class="text-danger">
                     <div *ngIf="description.errors.required">
                       Description is required.
@@ -51,7 +52,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="recipe">Recipe</label>
-                <textarea class="form-control" id="recipe" name="recipe" ngModel #recipe="ngModel" required></textarea>
+                <textarea class="form-control" id="recipe" name="recipe" [ngModel]="drink?.recipe" #recipe="ngModel" rows="15" required></textarea>
                 <div *ngIf="recipe.invalid && (recipe.dirty || recipe.touched || errorInForm)" class="text-danger">
                   <div *ngIf="recipe.errors.required">
                     Recipe is required.

@@ -19,6 +19,14 @@ export class DrinkService {
     return this.httpClient.post<{drinkCreated: boolean}>(this.serverAddress + 'api/drink/new', drink);
   }
 
+  editDrink(drink: DrinkModel) {
+    return this.httpClient.post<{drinkCreated: boolean}>(this.serverAddress + 'api/drink/edit', drink);
+  }
+
+  getDrink(drinkId) {
+    return this.httpClient.get<DrinkAPIResponse>(this.serverAddress + 'api/drink/' + drinkId);
+  }
+
   listDrinks() {
     return this.httpClient.get<DrinkAPIResponse>(this.serverAddress + 'api/drink/');
   }

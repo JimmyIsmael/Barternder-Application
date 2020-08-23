@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'list-users', component: ListUsersComponent, canActivate: [AuthGuard] },
   { path: 'list-drinks', component: ListDrinksComponent, canActivate: [AuthGuard] },
   { path: 'create-drink', component: CreateDrinksComponent, canActivate: [AuthGuard] },
+  { path: 'edit-drink', component: CreateDrinksComponent, canActivate: [AuthGuard] },
   { path: 'hello-world', component: HelloWorldComponent }
 ];
 export const routingModule: ModuleWithProviders = RouterModule.forRoot(routes);

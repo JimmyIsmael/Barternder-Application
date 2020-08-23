@@ -68,9 +68,29 @@ exports.createNewDrink = async function (req, res,next){
   }
 }
 
+exports.editDrink = async function (req, res,next){
+  let rowCount = sql.editDrink(req.body);
+  console.log(rowCount);
+  if(rowCount == 1){
+    res.status(201).json({drinkCreated: true});
+  }else{
+    res.status(202).send();
+  }
+}
+
 exports.getAllDrinks = async function (req, res,next){
   let drinkList = [];
   drinkList = await sql.getAllDrinks();
+  if(drinkList.length > 0){
+      res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.getDrink = async function (req, res,next){
+  let drinkList = [];
+  drinkList = await sql.getDrink(req.params.drinkId);
   if(drinkList.length > 0){
       res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
   }else{
