@@ -15,7 +15,8 @@ router.get('/volunteer/status/:status',controller.getAllUsersByStatus);
 router.get('/volunteer/search/:searchValue',controller.getAllUsersBySearchValue);
 
 //Add POST endpoint here
-router.post('/volunteer/new',controller.createNewUser);
+router.post('/volunteer/new', controller.createNewUser);
+router.post('/drink/new', controller.createNewDrink);
 
 //Will catch all not defined routes
 router.get('*',controller.getNotFound);

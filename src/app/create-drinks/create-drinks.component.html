@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <form class="needs-validation" (submit)="onSave(templateForm)"  #templateForm="ngForm" novalidate>
+    <div class="row">
+      <div class="col-md-6 pull-left">
+        <h2>Create Drink</h2>
+      </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-danger" type="button" routerLink="/list-drinks/"> Cancel</button>
+          <button class="btn btn-primary ml-2"  type="submit"> Save Drink</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-8 offset-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Drink Information</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="drinkName">Drink name</label>
+                  <input type="text" class="form-control" id="drinkName" name="drinkName" ngModel #drinkName="ngModel" required maxlength="30" minlength="1">
+                  <div *ngIf="drinkName.invalid && (drinkName.dirty || drinkName.touched || errorInForm)" class="text-danger">
+                    <div *ngIf="(drinkName.errors.required)">
+                      Drink name is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="drinkPrice">Drink Price</label>
+                  <input type="number" class="form-control" id="drinkPrice" name="drinkPrice" ngModel #drinkPrice="ngModel" required>
+                  <div *ngIf="drinkPrice.invalid && (drinkPrice.dirty || drinkPrice.touched || errorInForm)" class="text-danger">
+                    <div *ngIf="(drinkPrice.errors.required)">
+                      Price name is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="description">Description</label>
+                  <input type="description" class="form-control" id="description" name="description" ngModel #description="ngModel" required>
+                  <div *ngIf="description.invalid && (description.dirty || description.touched || errorInForm)" class="text-danger">
+                    <div *ngIf="description.errors.required">
+                      Description is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <label for="recipe">Recipe</label>
+                <textarea class="form-control" id="recipe" name="recipe" ngModel #recipe="ngModel" required></textarea>
+                <div *ngIf="recipe.invalid && (recipe.dirty || recipe.touched || errorInForm)" class="text-danger">
+                  <div *ngIf="recipe.errors.required">
+                    Recipe is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

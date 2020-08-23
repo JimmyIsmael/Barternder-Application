@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 pull-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-primary"  type="button"  routerLink="/create-drink/"> Create New</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6 pull-left">
+      <h2>List of Drinks</h2>
+    </div>
+    <div class="col-md-3 text-right">
+      <input type="text" class="form-control"  placeholder="Enter Keyword for filter result">
+    </div>
+      <div class="col-md-3 text-right">
+        <select class="custom-select" id="status" name="status">
+          <option value="0" selected>All Drinks</option>
+          <option value="1">Lower Price</option>
+          <option value="2">Higher Price</option>
+        </select>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>

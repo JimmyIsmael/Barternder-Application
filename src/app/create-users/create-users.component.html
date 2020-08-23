@@ -4,7 +4,7 @@
   <form class="needs-validation"  (submit)="onSave(templateForm)" #templateForm="ngForm" novalidate>
     <div class="row">
       <div class="col-md-6 pull-left">
-        <h2>Volunteer Record </h2>
+        <h2>User Record </h2>
       </div>
         <div class="col-md-6 text-right">
           <button class="btn btn-danger" type="button" routerLink="/list-users/"> Cancel</button>
@@ -138,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="licenses">Licenses</label>
                 <textarea class="form-control" id="licenses" name="licenses" ngModel #licenses="ngModel"></textarea>
@@ -147,13 +147,14 @@
                 <label for="availability">Availability</label>
                 <textarea class="form-control" id="availability" name="availability" ngModel #availability="ngModel"></textarea>
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="role">Role</label>
                 <select class="custom-select d-block w-100" id="role" name="role" ngModel #role="ngModel" required>
                   <option value="1">Administrator</option>
-                  <option value="2">Volunteer</option>
+                  <option value="2">Bartender</option>
+                  <option value="3">Customer</option>
                 </select>
                 <div *ngIf="role.invalid && (role.dirty || role.touched || errorInForm)" class="text-danger">
                   <div *ngIf="role.errors.required">
@@ -176,7 +177,7 @@
               </div>
 
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-6 mb-3">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="driversLicense" name="driversLicense" ngModel #driversLicense="ngModel">
@@ -187,7 +188,7 @@
                 <input type="checkbox" class="form-check-input" id="socialSecurity" name="socialSecurity" ngModel #socialSecurity="ngModel">
                 <label class="form-check-label" for="socialSecurity">Social Security</label>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

@@ -30,8 +30,12 @@ export class CreateUsersComponent implements OnInit {
   getRoleDescription(roleId: string) {
     if (roleId === '1') {
       return 'Administrator';
-    } else {
-      return 'Volunteer';
+    }
+    if (roleId === '2') {
+      return 'Bartender';
+    }
+    if (roleId === '3') {
+      return 'Customer';
     }
   }
   confirmPassword(password: string, confirmPassword: string) {

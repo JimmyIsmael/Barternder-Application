@@ -48,7 +48,7 @@ exports.getAllUsers = function() {
 exports.getUserByUserNameAndPassword = function(userName, password) {
     return new Promise( resolve => {
         tp.sql("SELECT [id] ,[first_name] ,[last_name] ,[username],[role],[email], [status] " +
-        " FROM [Bartender].[dbo].[Users] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Approved'")
+        " FROM [Bartender].[dbo].[Users] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Active'")
         .execute()
         .then(function(results) {
             //console.log(results);
@@ -137,4 +137,33 @@ exports.getAllUsersBySearchValue = function(searchValue) {
           console.log(err);
       });
   });
+}
+
+exports.createNewDrink = function(drinkObject) {
+  //console.log(drinkObject);
+  pool.acquire(function (err, connection) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      //use the connection as normal
+      var request = new Request("INSERT INTO [dbo].[Drinks] ([drink_name], [drink_description], [drink_price], [drink_recipe]) values (@DRINK_NAME, @DRINK_DESCRIPTION, @DRINK_PRICE, @DRINK_RECIPE)",
+      function(err, rowCount) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          //release the connection back to the pool when finished
+          connection.release();
+      });
+
+      request.addParameter('DRINK_NAME', TYPES.VarChar, drinkObject.name);
+      request.addParameter('DRINK_DESCRIPTION', TYPES.VarChar, drinkObject.description);
+      request.addParameter('DRINK_PRICE', TYPES.VarChar, drinkObject.price);
+      request.addParameter('DRINK_RECIPE', TYPES.VarChar, drinkObject.recipe);
+      connection.execSql(request);
+  });
+
+  // Returning one if no error occurred.
+  return 1;
 }

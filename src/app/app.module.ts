@@ -14,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './_guards/index';
+import { ListDrinksComponent } from './list-drinks/list-drinks.component';
+import { CreateDrinksComponent } from './create-drinks/create-drinks.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AuthGuard } from './_guards/index';
     HomeComponent,
     ListUsersComponent,
     HelloWorldComponent,
-    LoginComponent
+    LoginComponent,
+    ListDrinksComponent,
+    CreateDrinksComponent
   ],
   imports: [
     BrowserModule,

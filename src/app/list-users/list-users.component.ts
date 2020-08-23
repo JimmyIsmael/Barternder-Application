@@ -22,7 +22,7 @@ export class ListUsersComponent implements OnInit {
 
   getVolunteersByStatus(status) {
     // tslint:disable-next-line: triple-equals
-    if (status != 'All Volunteers'){
+    if (status != 'All Users') {
       this.usersList = [];
       this.userService.listVolunteerByStatus(status).subscribe((usersReturned) => {
         if (usersReturned) {

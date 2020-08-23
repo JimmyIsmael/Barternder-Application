@@ -57,3 +57,13 @@ exports.getAllUsersBySearchValue = async function (req, res,next){
       res.status(204).send();
   }
 }
+
+exports.createNewDrink = async function (req, res,next){
+  let rowCount = sql.createNewDrink(req.body);
+  console.log(rowCount);
+  if(rowCount == 1){
+    res.status(201).json({drinkCreated: true});
+  }else{
+    res.status(202).send();
+  }
+}
