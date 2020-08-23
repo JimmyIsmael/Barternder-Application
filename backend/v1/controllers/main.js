@@ -67,3 +67,43 @@ exports.createNewDrink = async function (req, res,next){
     res.status(202).send();
   }
 }
+
+exports.getAllDrinks = async function (req, res,next){
+  let drinkList = [];
+  drinkList = await sql.getAllDrinks();
+  if(drinkList.length > 0){
+      res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.listDrinksByLowerPrice = async function (req, res,next){
+  let drinkList = [];
+  drinkList = await sql.listDrinksByLowerPrice();
+  if(drinkList.length > 0){
+      res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.listDrinksByHigherPrice = async function (req, res,next){
+  let drinkList = [];
+  drinkList = await sql.listDrinksByHigherPrice();
+  if(drinkList.length > 0){
+      res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.listDrinksByKeyword = async function (req, res,next){
+  let drinkList = [];
+  drinkList = await sql.listDrinksByKeyword(req.params.keyword);
+  if(drinkList.length > 0){
+      res.status(200).json({status:200, results: drinkList, resultsLength: drinkList.length});
+  }else{
+      res.status(204).send();
+  }
+}

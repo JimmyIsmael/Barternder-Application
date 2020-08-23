@@ -14,13 +14,13 @@
       <h2>List of Drinks</h2>
     </div>
     <div class="col-md-3 text-right">
-      <input type="text" class="form-control"  placeholder="Enter Keyword for filter result">
+      <input type="text" class="form-control"  placeholder="Enter Keyword for filter result" (change)=getDrinkByKeyword($event.target.value)>
     </div>
       <div class="col-md-3 text-right">
-        <select class="custom-select" id="status" name="status">
+        <select class="custom-select" id="priceOrder" name="priceOrder" (change)="getDrinksByPrice($event.target.value)">
           <option value="0" selected>All Drinks</option>
-          <option value="1">Lower Price</option>
-          <option value="2">Higher Price</option>
+          <option value="1">Lower Price to Higher</option>
+          <option value="2">Higher Price to Lower</option>
         </select>
       </div>
   </div>
@@ -37,7 +37,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let row of drinksList">
+                <td>{{ row.id }}</td>
+                <td>{{ row.name}}</td>
+                <td>{{ row.description }}</td>
+                <td>{{ row.price }}</td>
               </tr>
             </tbody>
           </table>

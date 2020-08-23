@@ -167,3 +167,54 @@ exports.createNewDrink = function(drinkObject) {
   // Returning one if no error occurred.
   return 1;
 }
+
+exports.getAllDrinks = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks]")
+      .execute()
+      .then(function(results) {
+          // console.log(results);
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByLowerPrice = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks] order by [price] asc")
+      .execute()
+      .then(function(results) {
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByHigherPrice = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks] order by [price] desc")
+      .execute()
+      .then(function(results) {
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByKeyword = function(keyword) {
+  return new Promise( resolve => {
+    var sql ="SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks]" +
+    "where [drink_name] like '%' + '"+ keyword + "' + '%' or [drink_description] like '%' + '" + keyword +"' + '%'";
+    tp.sql(sql)
+    .execute()
+    .then(function(results) {
+        resolve(results);
+    }).fail(function(err) {
+        console.log(err);
+    });
+  });
+}
