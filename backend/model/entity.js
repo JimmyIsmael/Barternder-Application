@@ -48,7 +48,7 @@ exports.getAllUsers = function() {
 exports.getUserByUserNameAndPassword = function(userName, password) {
     return new Promise( resolve => {
         tp.sql("SELECT [id] ,[first_name] ,[last_name] ,[username],[role],[email], [status] " +
-        " FROM [Bartender].[dbo].[Users] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Approved'")
+        " FROM [Bartender].[dbo].[Users] where username= '"+userName+"' and password=HashBytes('MD5', '"+password+"') and status = 'Active'")
         .execute()
         .then(function(results) {
             //console.log(results);
@@ -136,5 +136,130 @@ exports.getAllUsersBySearchValue = function(searchValue) {
       }).fail(function(err) {
           console.log(err);
       });
+  });
+}
+
+exports.createNewDrink = function(drinkObject) {
+  //console.log(drinkObject);
+  pool.acquire(function (err, connection) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      //use the connection as normal
+      var request = new Request("INSERT INTO [dbo].[Drinks] ([drink_name], [drink_description], [drink_price], [drink_recipe]) values (@DRINK_NAME, @DRINK_DESCRIPTION, @DRINK_PRICE, @DRINK_RECIPE)",
+      function(err, rowCount) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          //release the connection back to the pool when finished
+          connection.release();
+      });
+
+      request.addParameter('DRINK_NAME', TYPES.VarChar, drinkObject.name);
+      request.addParameter('DRINK_DESCRIPTION', TYPES.VarChar, drinkObject.description);
+      request.addParameter('DRINK_PRICE', TYPES.VarChar, drinkObject.price);
+      request.addParameter('DRINK_RECIPE', TYPES.VarChar, drinkObject.recipe);
+      connection.execSql(request);
+  });
+
+  // Returning one if no error occurred.
+  return 1;
+}
+
+exports.editDrink = function(drinkObject) {
+  //console.log(drinkObject);
+  pool.acquire(function (err, connection) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      //use the connection as normal
+      var request = new Request("UPDATE [dbo].[Drinks] SET [drink_name] = @DRINK_NAME, [drink_description] = @DRINK_DESCRIPTION, [drink_recipe] = @DRINK_RECIPE, [drink_price] = @DRINK_PRICE " +
+      " WHERE id = @DRINK_ID",
+      function(err, rowCount) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          //release the connection back to the pool when finished
+          connection.release();
+      });
+
+      request.addParameter('DRINK_ID', TYPES.VarChar, drinkObject.id);
+      request.addParameter('DRINK_NAME', TYPES.VarChar, drinkObject.name);
+      request.addParameter('DRINK_DESCRIPTION', TYPES.VarChar, drinkObject.description);
+      request.addParameter('DRINK_PRICE', TYPES.VarChar, drinkObject.price);
+      request.addParameter('DRINK_RECIPE', TYPES.VarChar, drinkObject.recipe);
+      connection.execSql(request);
+  });
+
+  // Returning one if no error occurred.
+  return 1;
+}
+
+exports.getAllDrinks = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks] order by id")
+      .execute()
+      .then(function(results) {
+          // console.log(results);
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.getDrink = function(drinkId) {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks]"
+      + " where id=" + drinkId)
+      .execute()
+      .then(function(results) {
+          // console.log(results);
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByLowerPrice = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks] order by [price] asc")
+      .execute()
+      .then(function(results) {
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByHigherPrice = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks] order by [price] desc")
+      .execute()
+      .then(function(results) {
+          resolve(results);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.listDrinksByKeyword = function(keyword) {
+  return new Promise( resolve => {
+    var sql ="SELECT [id] ,[drink_name] as [name], [drink_description] as [description], [drink_recipe] as [recipe], [drink_price] as [price] FROM [Bartender].[dbo].[Drinks]" +
+    "where [drink_name] like '%' + '"+ keyword + "' + '%' or [drink_description] like '%' + '" + keyword +"' + '%'";
+    tp.sql(sql)
+    .execute()
+    .then(function(results) {
+        resolve(results);
+    }).fail(function(err) {
+        console.log(err);
+    });
   });
 }

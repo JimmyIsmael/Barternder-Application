@@ -11,17 +11,15 @@
   <br>
   <div class="row">
     <div class="col-md-6 pull-left">
-      <h2>List of Volunteers</h2>
+      <h2>List of Users</h2>
     </div>
     <div class="col-md-3 text-right">
       <input type="text" class="form-control"  placeholder="Enter Keyword for filter result" (change)=findUser($event.target.value)>
     </div>
       <div class="col-md-3 text-right">
         <select class="custom-select" id="status" name="status" (change)="getVolunteersByStatus($event.target.options[$event.target.options.selectedIndex].text)">
-          <option value="0" selected>All Volunteers</option>
-          <option value="1">Approved</option>
-          <option value="2">Pending Approval</option>
-          <option value="3">Disapproved</option>
+          <option value="0" selected>All Users</option>
+          <option value="1">Active</option>
           <option value="4">Inactive</option>
         </select>
       </div>
