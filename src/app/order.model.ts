@@ -1,7 +1,10 @@
-export interface OrderItemModel {
+import { OrderItemModel } from "./order-item.model";
+
+export interface OrderModel {
   id: number;
-  drinkId: number;
-  drinkName: string;
-  price: number;
-  quantity: number;
+  userId: number;
+  userName: string;
+  orderDate: string;
+  orderStatus: string;
+  orderItems: OrderItemModel[];
 }

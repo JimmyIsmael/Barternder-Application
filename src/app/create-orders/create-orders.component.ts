@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DrinkModel } from '../drink.model';
 import { DrinkService } from '../drink.service';
 import { Router } from '@angular/router';
-import { OrderItemModel } from '../order.model';
+import { OrderItemModel } from '../order-item.model';
+import { OrderModel } from '../order.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-orders',
@@ -11,10 +13,10 @@ import { OrderItemModel } from '../order.model';
 })
 export class CreateOrdersComponent implements OnInit {
   public drinksList: DrinkModel[];
-  public orderList:  any = [];
+  public orderItemsList:  any = [];
   drink: DrinkModel;
   total = 0;
-  constructor(public drinkService: DrinkService, public router: Router) { }
+  constructor(public drinkService: DrinkService, public router: Router, public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.drinkService.listDrinks().subscribe((drinksReturned) => {
@@ -39,14 +41,31 @@ export class CreateOrdersComponent implements OnInit {
         };
 
         this.total = this.drink.price + this.total;
-        console.log(this.drink.price);
-        this.orderList.push(orderItem);
+        this.orderItemsList.push(orderItem);
       }
     });
   }
 
   deleteFromOrder(drinkId) {
-    var removeIndex = this.orderList.map(function(drink) { return drink.drinkId; }).indexOf(drinkId);
-    this.orderList.splice(removeIndex, 1);
+    const removeIndex = this.orderItemsList.map(function(drink) { return drink.drinkId; }).indexOf(drinkId);
+    this.orderItemsList.splice(removeIndex, 1);
+  }
+
+  saveOrder() {
+    if (typeof this.orderItemsList !== 'undefined' && this.orderItemsList.length > 0) {
+      const order: OrderModel = {
+        id: null,
+        userId: JSON.parse(localStorage.getItem('currentUser')).id,
+        userName: JSON.parse(localStorage.getItem('currentUser')).first_name + ' ' +
+          JSON.parse(localStorage.getItem('currentUser')).last_name,
+        orderDate: this.datepipe.transform(new Date(), 'yyyy/MM/dd'),
+        orderStatus: 'Submitted',
+        orderItems: this.orderItemsList
+      };
+
+      console.log(order);
+    } else {
+      alert('Select at least one drink for the order');
+    }
   }
 }

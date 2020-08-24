@@ -1,33 +1,30 @@
 <app-navbar></app-navbar>
 <div class="container">
-
-  <form class="needs-validation"  (submit)="onSave(templateForm)" #templateForm="ngForm" novalidate>
-    <div class="row">
-      <div class="col-md-6 pull-left">
-        <h2>Ordering </h2>
-      </div>
-        <div class="col-md-6 text-right">
-          <button class="btn btn-danger" type="button" routerLink="/list-users/"> Cancel</button>
-          <button class="btn btn-primary ml-2"  type="submit"> Place Order</button>
-        </div>
+  <div class="row">
+    <div class="col-md-6 pull-left">
+      <h2>Ordering </h2>
     </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Dinks List</h4>
-            <div class="row">
-              <div class="card-deck">
-                <div *ngFor="let row of drinksList">
-                  <div class="card mb-3" style="width: 13rem; height: 18rem;">
-                    <div class="card-body card-drinks">
-                      <h5 class="card-title">{{row.name}}   ${{row.price}}</h5>
-                      <p class="card-text">{{row.description}}</p>
-                    </div>
-                    <div class="card-footer" (click)="addToOrder([row.id]);" style="cursor: pointer">
-                      <h5 class="text-center">Add to Order</h5>
-                    </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-danger" type="button" routerLink="/list-users/"> Cancel</button>
+        <button class="btn btn-primary ml-2"  type="button" (click)="saveOrder()"> Place Order</button>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Dinks List</h4>
+          <div class="row">
+            <div class="card-deck">
+              <div *ngFor="let row of drinksList">
+                <div class="card mb-3" style="width: 13rem; height: 18rem;">
+                  <div class="card-body card-drinks">
+                    <h5 class="card-title">{{row.name}}   ${{row.price}}</h5>
+                    <p class="card-text">{{row.description}}</p>
+                  </div>
+                  <div class="card-footer" (click)="addToOrder([row.id]);" style="cursor: pointer">
+                    <h5 class="text-center">Add to Order</h5>
                   </div>
                 </div>
               </div>
@@ -35,35 +32,35 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Cart</h4>
-              <div class="row">
-                <div class="col-md-12">
-                  <table width="100%">
-                    <thead>
-                      <th align="left">Item</th>
-                      <th align="right">Quantity</th>
-                      <th>Options</th>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let row of orderList" >
-                        <td align="left" ><strong>{{row.drinkName}}</strong></td>
-                        <td align="right" ><strong>${{row.price}} x {{row.quantity}}</strong></td>
-                        <td><button class="btn btn-danger btn-sm"  type="button" (click)="deleteFromOrder([row.drinkId])"> Delete</button></td>
-                      </tr>
-                    </tbody>
-                    <hr>
-                    <tfoot>
-                      <span><strong>Your Total:  $</strong><strong align="right" ng-model="myDecimal | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">{{total}}</strong></span>
-                    </tfoot>
-                  </table>
-                </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Cart</h4>
+            <div class="row">
+              <div class="col-md-12">
+                <table width="100%">
+                  <thead>
+                    <th align="left">Item</th>
+                    <th align="right">Quantity</th>
+                    <th>Options</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of orderItemsList" >
+                      <td align="left" ><strong>{{row.drinkName}}</strong></td>
+                      <td align="right" ><strong>${{row.price}} x {{row.quantity}}</strong></td>
+                      <td><button class="btn btn-danger btn-sm"  type="button" (click)="deleteFromOrder([row.drinkId])"> Delete</button></td>
+                    </tr>
+                  </tbody>
+                  <hr>
+                  <tfoot>
+                    <span><strong>Your Total:  $</strong><strong align="right" ng-model="myDecimal | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">{{total}}</strong></span>
+                  </tfoot>
+                </table>
               </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>
