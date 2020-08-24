@@ -24,6 +24,7 @@ router.get('/drink/keyword/:keyword',controller.listDrinksByKeyword);
 router.post('/volunteer/new', controller.createNewUser);
 router.post('/drink/new', controller.createNewDrink);
 router.post('/drink/edit', controller.editDrink);
+router.post('/order/new', controller.createNewOrder);
 
 
 //Will catch all not defined routes

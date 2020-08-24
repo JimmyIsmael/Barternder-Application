@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { OrderItemModel } from '../order-item.model';
 import { OrderModel } from '../order.model';
 import { DatePipe } from '@angular/common';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-create-orders',
@@ -16,7 +17,7 @@ export class CreateOrdersComponent implements OnInit {
   public orderItemsList:  any = [];
   drink: DrinkModel;
   total = 0;
-  constructor(public drinkService: DrinkService, public router: Router, public datepipe: DatePipe) { }
+  constructor(public drinkService: DrinkService, public router: Router, public datepipe: DatePipe, public orderService: OrderService) { }
 
   ngOnInit() {
     this.drinkService.listDrinks().subscribe((drinksReturned) => {
@@ -64,6 +65,12 @@ export class CreateOrdersComponent implements OnInit {
       };
 
       console.log(order);
+
+      this.orderService.saveOrder(order).subscribe((orderCreated) => {
+        if (orderCreated) {
+          alert('Order Created');
+        }
+      });
     } else {
       alert('Select at least one drink for the order');
     }

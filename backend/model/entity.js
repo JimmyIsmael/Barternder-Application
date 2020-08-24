@@ -5,6 +5,7 @@ var TYPES = require('tedious').TYPES;
 var tp = require('tedious-promises');
 const { resolve } = require('path');
 var md5 = require('md5');
+const { async } = require('rxjs/internal/scheduler/async');
 
 //This line alows to read environment variables from .env file or Azure App Service
 require('dotenv').config();
@@ -262,4 +263,77 @@ exports.listDrinksByKeyword = function(keyword) {
         console.log(err);
     });
   });
+}
+
+getLastOrderId = function() {
+  return new Promise( resolve => {
+      tp.sql("SELECT o.id FROM [Bartender].[dbo].[Orders] o order by o.id desc")
+      .execute()
+      .then(function(results) {
+          resolve(results[0].id);
+      }).fail(function(err) {
+          console.log(err);
+      });
+  });
+}
+
+exports.createNewOrder = async function(orderObject) {
+  try{
+
+    // Saving Header
+    pool.acquire(function (err, connection) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      var request = new Request("INSERT INTO [dbo].[Orders] ([customer_id], [customer_name], [order_date], [order_status]) values (@CUSTOMER_ID, @CUSTOMER_NAME, @ORDER_DATE, @ORDER_STATUS)",
+      function(err, rowCount) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          connection.release();
+      });
+
+      request.addParameter('CUSTOMER_ID', TYPES.Int, orderObject.userId);
+      request.addParameter('CUSTOMER_NAME', TYPES.VarChar, orderObject.userName);
+      request.addParameter('ORDER_DATE', TYPES.Date, orderObject.orderDate);
+      request.addParameter('ORDER_STATUS', TYPES.VarChar, orderObject.orderStatus);
+      connection.execSql(request);
+  });
+
+  // Getting last order id
+  var orderId = await getLastOrderId();
+
+  console.log("Last Order Id: " + orderId);
+
+  // Saving Details
+  for(let item of orderObject.orderItems) {
+    pool.acquire(function (err, connection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        var request = new Request("INSERT INTO [dbo].[Order_Details] ([order_id], [drink_id], [drink_name], [drink_quantity]) values (@ORDER_ID, @DRINK_ID, @DRINK_NAME, @DRINK_QUANTITY)",
+        function(err, rowCount) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            connection.release();
+        });
+
+        request.addParameter('ORDER_ID', TYPES.Int, orderId);
+        request.addParameter('DRINK_ID', TYPES.Int, item.drinkId);
+        request.addParameter('DRINK_NAME', TYPES.VarChar, item.drinkName);
+        request.addParameter('DRINK_QUANTITY', TYPES.VarChar, item.quantity);
+        connection.execSql(request);
+    });
+  }
+
+  // Returning one if no error occurred.
+  return 1;
+  }catch{
+    console.log("Error Saving Order: " + err);
+  }
 }

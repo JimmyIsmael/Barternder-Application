@@ -52,7 +52,7 @@
                       <td><button class="btn btn-danger btn-sm"  type="button" (click)="deleteFromOrder([row.drinkId])"> Delete</button></td>
                     </tr>
                   </tbody>
-                  <hr>
+                  <hr width="100%">
                   <tfoot>
                     <span><strong>Your Total:  $</strong><strong align="right" ng-model="myDecimal | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">{{total}}</strong></span>
                   </tfoot>
