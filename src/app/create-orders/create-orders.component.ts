@@ -13,7 +13,7 @@ export class CreateOrdersComponent implements OnInit {
   public drinksList: DrinkModel[];
   public orderList:  any = [];
   drink: DrinkModel;
-  total: number;
+  total = 0;
   constructor(public drinkService: DrinkService, public router: Router) { }
 
   ngOnInit() {
@@ -43,5 +43,10 @@ export class CreateOrdersComponent implements OnInit {
         this.orderList.push(orderItem);
       }
     });
+  }
+
+  deleteFromOrder(drinkId) {
+    var removeIndex = this.orderList.map(function(drink) { return drink.drinkId; }).indexOf(drinkId);
+    this.orderList.splice(removeIndex, 1);
   }
 }
