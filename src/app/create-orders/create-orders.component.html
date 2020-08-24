@@ -40,9 +40,24 @@
           <div class="card-body">
             <h4 class="card-title">Cart</h4>
               <div class="row">
-              </div>
-
-              <div class="row">
+                <div class="col-md-12">
+                  <table>
+                    <thead>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of orderList">
+                        <td align="left" width="100%"><strong>{{row.drinkName}}</strong></td>
+                        <td align="right"><strong>{{row.quantity}}</strong></td>
+                      </tr>
+                    </tbody>
+                    <hr>
+                    <tfoot>
+                      <span><strong>Your Total:  </strong><strong align="right">{{total}}</strong></span>
+                    </tfoot>
+                  </table>
+                </div>
               </div>
           </div>
         </div>
