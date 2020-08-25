@@ -19,11 +19,15 @@ router.get('/drink/:drinkId',controller.getDrink);
 router.get('/drink/price/lower',controller.listDrinksByLowerPrice);
 router.get('/drink/price/higher',controller.listDrinksByHigherPrice);
 router.get('/drink/keyword/:keyword',controller.listDrinksByKeyword);
+router.get('/order/status/submitted',controller.listSubmiitedOrders);
+router.get('/order/item/:orderId',controller.listOrderItems);
+router.get('/order/close/:orderId',controller.closeOrder);
 
 //Add POST endpoint here
 router.post('/volunteer/new', controller.createNewUser);
 router.post('/drink/new', controller.createNewDrink);
 router.post('/drink/edit', controller.editDrink);
+router.post('/order/new', controller.createNewOrder);
 
 
 //Will catch all not defined routes
