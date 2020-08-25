@@ -130,9 +130,39 @@ exports.listDrinksByKeyword = async function (req, res,next){
 
 exports.createNewOrder = async function (req, res,next){
   let rowCount = sql.createNewOrder(req.body);
+  console.log("row count: " + rowCount);
+  if(rowCount){
+    res.status(201).json({orderCreated: true});
+  }else{
+    res.status(202).send();
+  }
+}
+
+exports.listSubmiitedOrders = async function (req, res,next){
+  let ordersList = [];
+  ordersList = await sql.listSubmiitedOrders();
+  if(ordersList.length > 0){
+      res.status(200).json({status:200, results: ordersList, resultsLength: ordersList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.listOrderItems = async function (req, res,next){
+  let itemsList = [];
+  itemsList = await sql.listOrderItems(req.params.orderId);
+  if(itemsList.length > 0){
+      res.status(200).json({status:200, results: itemsList, resultsLength: itemsList.length});
+  }else{
+      res.status(204).send();
+  }
+}
+
+exports.closeOrder = async function (req, res,next){
+  let rowCount = sql.closeOrder(req.params.orderId);
   console.log(rowCount);
   if(rowCount == 1){
-    res.status(201).json({orderCreated: true});
+    res.status(201).json({orderClosed: true});
   }else{
     res.status(202).send();
   }

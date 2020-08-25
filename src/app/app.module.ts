@@ -18,6 +18,7 @@ import { ListDrinksComponent } from './list-drinks/list-drinks.component';
 import { CreateDrinksComponent } from './create-drinks/create-drinks.component';
 import { CreateOrdersComponent } from './create-orders/create-orders.component';
 import { DatePipe } from '@angular/common';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DatePipe } from '@angular/common';
     LoginComponent,
     ListDrinksComponent,
     CreateDrinksComponent,
-    CreateOrdersComponent
+    CreateOrdersComponent,
+    ListOrdersComponent
   ],
   imports: [
     BrowserModule,

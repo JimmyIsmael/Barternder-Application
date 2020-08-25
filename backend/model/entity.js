@@ -337,3 +337,50 @@ exports.createNewOrder = async function(orderObject) {
     console.log("Error Saving Order: " + err);
   }
 }
+
+
+exports.listSubmiitedOrders = function() {
+  return new Promise( resolve => {
+    var sql ="SELECT id, customer_id as userId, customer_name as userName, order_date as orderDate, order_status as orderStatus FROM [Bartender].[dbo].[Orders] where [order_status]='Submitted' order by id asc";
+    tp.sql(sql)
+    .execute()
+    .then(function(results) {
+        resolve(results);
+    }).fail(function(err) {
+        console.log(err);
+    });
+  });
+}
+
+exports.listOrderItems = function(orderId) {
+  return new Promise( resolve => {
+    var sql ="SELECT id, order_id as orderId, drink_id as drinkId, drink_name as drinkName, drink_quantity as quantity FROM [Bartender].[dbo].[Order_Details] where order_id="+orderId;
+    tp.sql(sql)
+    .execute()
+    .then(function(results) {
+        resolve(results);
+    }).fail(function(err) {
+        console.log(err);
+    });
+  });
+}
+
+exports.closeOrder = function(orderId) {
+  pool.acquire(function (err, connection) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      var request = new Request("update [Bartender].[dbo].[Orders] set order_status='Completed' where id = @ORDER_ID",
+      function(err, rowCount) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          connection.release();
+      });
+      request.addParameter('ORDER_ID', TYPES.Int, orderId);
+      connection.execSql(request);
+  });
+  return 1;
+}

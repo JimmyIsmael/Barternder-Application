@@ -9,6 +9,7 @@ import { AuthGuard } from './_guards/index';
 import { ListDrinksComponent } from './list-drinks/list-drinks.component';
 import { CreateDrinksComponent } from './create-drinks/create-drinks.component';
 import { CreateOrdersComponent } from './create-orders/create-orders.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
 
 const routes: Routes = [
   { path: '',  redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'create-drink', component: CreateDrinksComponent, canActivate: [AuthGuard] },
   { path: 'edit-drink', component: CreateDrinksComponent, canActivate: [AuthGuard] },
   { path: 'create-order', component: CreateOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'list-orders', component: ListOrdersComponent, canActivate: [AuthGuard] },
   { path: 'hello-world', component: HelloWorldComponent }
 ];
 export const routingModule: ModuleWithProviders = RouterModule.forRoot(routes);

@@ -68,7 +68,7 @@ export class CreateOrdersComponent implements OnInit {
 
       this.orderService.saveOrder(order).subscribe((orderCreated) => {
         if (orderCreated) {
-          alert('Order Created');
+          this.router.navigate(['/list-orders']);
         }
       });
     } else {
