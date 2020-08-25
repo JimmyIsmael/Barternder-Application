@@ -10,6 +10,8 @@ This project allows administrator users to:
 6) Displays orders for the bartenders.
 7) Allow bartenders to mark orders as completed. 
 
+## Screenshots
+
 
 ## To Run This Project
 ### Frontend
