@@ -11,7 +11,7 @@ This project allows administrator users to:
 7) Allow bartenders to mark orders as completed. 
 
 ## Screenshots
-
+Add them here
 
 ## To Run This Project
 ### Frontend
