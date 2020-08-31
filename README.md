@@ -10,9 +10,6 @@ This project allows administrator users to:
 6) Displays orders for the bartenders.
 7) Allow bartenders to mark orders as completed. 
 
-## Screenshots
-Add them here
-
 ## To Run This Project
 ### Frontend
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 5.2.9.
