@@ -1,7 +1,7 @@
 # Senior Project I: Bartender Application
 
 ## Functionality
-This project allows administrator users to:
+This project allows users to:
 1) Login
 2) List all Drinks.
 3) Search for drinks by name.
